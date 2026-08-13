@@ -19,7 +19,7 @@ async function runCase(testCase) {
 		body: JSON.stringify({ role: "customer", content: testCase.message }),
 	});
 
-	const res = await fetch(`${BASE}/api/tickets/${ticketId}/triage?cb=${Date.now()}`, { method: "POST" });
+	const res = await fetch(`${BASE}/api/tickets/${ticketId}/analyze?cb=${Date.now()}`, { method: "POST" });
 	if (!res.ok) {
 		return { id: testCase.id, error: `HTTP ${res.status}`, checks: [], passed: 0, total: 1 };
 	}
