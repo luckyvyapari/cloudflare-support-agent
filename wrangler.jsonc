@@ -1,0 +1,67 @@
+{
+	"name": "support-triage-agent",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-08-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1
+	},
+	"vars": {
+		"LOCAL_MODEL": "false",
+		"AI_GATEWAY_ID": "triage-gateway"
+	},
+	"kv_namespaces": [
+		{
+			"binding": "FEATURE_FLAGS",
+			"id": "9f3a98bb3d0f44718bae16fa8f6500be"
+		}
+	],
+	"vectorize": [
+		{
+			"binding": "VECTORIZE",
+			"index_name": "triage-tickets",
+			"remote": true
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	},
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "TICKET_SESSION",
+				"class_name": "TicketSession"
+			},
+			{
+				"name": "ROUTER_AGENT",
+				"class_name": "RouterAgent"
+			}
+		]
+	},
+	"migrations": [
+		{
+			"tag": "v1",
+			"new_sqlite_classes": ["TicketSession"]
+		},
+		{
+			"tag": "v2",
+			"new_sqlite_classes": ["RouterAgent"]
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "support-tickets-db",
+			"database_id": "4c4476de-af64-4155-8391-2a2d06f5a7c9"
+		}
+	],
+	"queues": {
+		"producers": [
+			{ "binding": "ESCALATION_QUEUE", "queue": "escalation-events" }
+		],
+		"consumers": [
+			{ "queue": "escalation-events", "max_batch_size": 10, "max_batch_timeout": 5 }
+		]
+	}
+}
