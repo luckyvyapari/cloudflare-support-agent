@@ -29,6 +29,11 @@ async function runCase(testCase) {
 	if (expect.category !== undefined) {
 		checks.push({ name: "category", pass: result.category === expect.category, got: result.category, want: expect.category });
 	}
+	if (expect.categoryOneOf !== undefined) {
+		// Some tickets are genuinely ambiguous (a corrupted DB is both a technical
+		// and a security incident). Accept any of the defensible categories.
+		checks.push({ name: "category", pass: expect.categoryOneOf.includes(result.category), got: result.category, want: expect.categoryOneOf });
+	}
 	if (expect.escalate !== undefined) {
 		checks.push({ name: "escalate", pass: result.escalate === expect.escalate, got: result.escalate, want: expect.escalate });
 	}

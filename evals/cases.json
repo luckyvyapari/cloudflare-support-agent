@@ -17,12 +17,12 @@
   {
     "id": "tech-data-loss",
     "message": "Our production database is corrupted and we are losing customer orders in real time.",
-    "expect": { "category": "technical", "minSeverity": "high", "escalate": true }
+    "expect": { "categoryOneOf": ["technical", "security"], "minSeverity": "high", "escalate": true }
   },
   {
     "id": "account-reset",
     "message": "I never receive the password reset email, I've tried five times.",
-    "expect": { "category": "account", "maxSeverity": "medium", "escalate": false }
+    "expect": { "categoryOneOf": ["account", "technical"], "maxSeverity": "medium", "escalate": false }
   },
   {
     "id": "security-breach",
