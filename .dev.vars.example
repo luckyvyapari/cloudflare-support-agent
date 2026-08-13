@@ -1,0 +1,4 @@
+LOCAL_MODEL=false
+OLLAMA_URL=http://localhost:11434
+ADMIN_KEY=change-me
+SUPPORT_KEY=change-me
